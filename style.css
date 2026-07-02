@@ -1,0 +1,92 @@
+body{
+    padding: 0;
+}
+
+.users{
+  display: flex;
+  flex-direction: column;
+}
+
+a{
+    text-decoration: none;
+}
+
+.user{
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.img{
+    display: none;
+}
+
+.user{
+    position: relative;
+}
+
+.img_delete{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+
+.dark {
+    background-color: black;
+    color: white;
+}
+
+.user_cont{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px 0 25px;
+    border: 3px solid purple;
+}
+
+.img__user{
+    width: 100px;
+}
+
+.no_scrol{
+   overflow-y: hidden;
+}
+
+.users_repos{
+    border: 3px solid purple;
+    height: 390px;
+    overflow-y: auto;
+}
+
+.header_block{
+    height: 70px;
+    background-color: grey;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.homeBtn,.searchBtn{
+    height: 25px;
+}
+
+.container{
+    max-width: 1200px;
+    padding: 0 15px 0 15px;
+    margin: 0 auto;
+}
+
+
+/* theme dark - btn light  */
+/* theme light - btn dark  */
+
+/* save to ls */
