@@ -9,11 +9,11 @@ const usersArr = [];
 
 const getUserFromGitHub = async () => {
   const userNameV = userName.value;
-  const filterArr = getExistUser();
+  const filterArr = getExistUser(userName.value,usersArr);
   if (filterArr) {
-    alert("This user already exists")
-    return
-  };
+    alert("This user already exists");
+    return;
+  }
 
   const data = await getUserHelper(userNameV);
 
@@ -35,12 +35,51 @@ const showNewUser = (data) => {
     <p>Followers: ${data.followers}</p>
     <p>Following: ${data.following}</p>
     <p>Location: ${data.location}</p>
-    <p>Public gists: ${data.public_gists}</p></div>` + users.innerHTML;
+    <p>Public gists: ${data.public_gists}</p>
+    <button slot="plus" id="${data.login}"> + </button>
+    </div>` + users.innerHTML;
   // <p>Id: ${data.id}</p>
   // <p>Mode_id: ${data.node_id}</p>
   // <p>Updated at: ${data.updated_at}</p>
   // <p>User view type: ${data.user_view_type}</p>
   // <p>Public Repos: ${data.public_repos}</p>
+};
+
+const newUsersArr = [];
+const addPlusBtnUsers = (e) => {
+  const t = e.target;
+  const tPlus = t.slot;
+  const login = t.id;
+  if (tPlus !== "plus") return;
+  changePlusMinusBtn(login);
+  let filterArr = getExistUser(login,newUsersArr);
+  console.log(filterArr)
+  if (filterArr) return
+  const plusElem = usersArr.filter((elem) => elem.login == login);
+  newUsersArr.push(...plusElem);
+  console.log(newUsersArr);
+  sentUsersToLSToCompareOage(newUsersArr);
+};
+
+// const deleteUserFromComparePage = () => {
+//   const t = e.target;
+//   const tPlus = t.slot;
+//   const login = t.id;
+//   if (tPlus !== "plus") return;
+//   const plus_btn = document.getElementById(login);
+//   if (plus_btn.textContent == "-") {
+//     const minusIndex = newUsersArr.findIndex((elem) => elem.login == login);
+//     newUsersArr.splice(minusIndex, 1);
+//   }
+// };
+
+const changePlusMinusBtn = (id) => {
+  const plus_btn = document.getElementById(id);
+  plus_btn.textContent = plus_btn.textContent.trim() == "+" ? "-" : "+";
+};
+
+const sentUsersToLSToCompareOage = (newUsersArr) => {
+  localStorage.setItem("plusElemUsers", JSON.stringify(newUsersArr));
 };
 
 const sentUsersToOcalStorage = () => {
@@ -56,8 +95,8 @@ const getUsersFromLocalStorage = () => {
   //!
 };
 
-const getExistUser = () => {
-  const userNameV = userName.value;
+const getExistUser = (userLogin,usersArr) => {
+  const userNameV = userLogin;
   const filterArr = usersArr.some((elem) => {
     if (elem.login == userNameV) {
       return true;
@@ -65,7 +104,6 @@ const getExistUser = () => {
   });
   return filterArr;
 };
-
 
 const deleteUser = (e) => {
   const t = e.target;
@@ -82,6 +120,8 @@ const deleteUser = (e) => {
 
 searchBtn.addEventListener("click", getUserFromGitHub);
 users.addEventListener("click", deleteUser);
+users.addEventListener("click", addPlusBtnUsers);
+// users.addEventListener("click",deleteUserFromComparePage)
 
 //--------------------------------------
 
@@ -101,8 +141,6 @@ users.addEventListener("click", deleteUser);
 //     <p>Public Repos: ${data.public_repos}</p>
 //     <p>Public gists: ${data.public_gists}</p></div>`
 
-
-
 // ok } no
 
 function setUserNameLS() {
@@ -115,17 +153,16 @@ function getUserNameLS() {
 }
 
 function changeBackgrondColor() {
-  changeBackgrColor(theme, light)
+  changeBackgrColor(theme, light);
 }
 
-function getThemeColorFromLocalST(){
-  getThemeColorFromLocalSTorage(theme, light)
+function getThemeColorFromLocalST() {
+  getThemeColorFromLocalSTorage(theme, light);
 }
 
 userName.addEventListener("input", setUserNameLS);
 theme.addEventListener("click", changeBackgrondColor);
 getUserNameLS();
-
 
 getUsersFromLocalStorage();
 getThemeColorFromLocalST();

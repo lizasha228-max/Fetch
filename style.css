@@ -25,6 +25,8 @@ a{
 
 .user{
     position: relative;
+    padding: 15px;
+    gap: 15px;
 }
 
 .img_delete{
@@ -52,10 +54,6 @@ a{
 
 .img__user{
     width: 100px;
-}
-
-.no_scrol{
-   overflow-y: hidden;
 }
 
 .users_repos{

@@ -1,6 +1,6 @@
 git clone url 
 
-get add .
-git commit -am"save 1"
+get add . // если один файл то вместо точки путь к файлу
+git commit -m"save 1"
 git push
 
